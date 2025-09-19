@@ -1,0 +1,203 @@
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-10 px-4 mt-20">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+    <!-- Sidebar -->
+    <aside class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+      <ul class="space-y-2">
+        <li>
+          <a routerLink="/account" i18n="@@personalAccount" class="block cursor-pointer px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400 font-medium">Account</a>
+        </li>
+        <li>
+          <a routerLink="/updatePassword" i18n="@@password" class="block px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Password</a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="md:col-span-3 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+      <h2 i18n="@@personalInfo" class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6">Personal Information:</h2>
+
+      <!-- Avatar -->
+      <div class="flex items-center justify-center space-x-4 mb-6">
+        <img src="images/user.jpg" alt="Avatar" class="w-20 h-20 rounded-full object-cover">
+      </div>
+
+      <!-- Form -->
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-4" [formGroup]="updateForm" (ngSubmit)="submit()">
+        <div>
+          <label i18n="@@name" class="text-sm font-medium text-gray-700 dark:text-gray-300">Name:</label>
+          <input formControlName="name" type="text" 
+            class="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        @if (updateForm.get('name')?.errors &&
+      ((updateForm.get('name')?.touched)||(updateForm.get('name')?.dirty)))
+      { @if (updateForm.get('name')?.getError('required')) {
+      <div
+        class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert"
+      >
+        <svg
+          class="shrink-0 inline w-4 h-4 me-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+          />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span i18n="@@fieldRequired" class="font-medium">this field is required</span>
+        </div>
+      </div>
+      } @else if (updateForm.get('name')?.getError('minlength')) {
+      <div
+        class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert"
+      >
+        <svg
+          class="shrink-0 inline w-4 h-4 me-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+          />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span i18n="@@minimumLength" class="font-medium">minimum length is 3</span>
+        </div>
+      </div>
+      } @else if (updateForm.get('name')?.getError('maxlength')) {
+      <div
+        class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert"
+      >
+        <svg
+          class="shrink-0 inline w-4 h-4 me-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+          />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span i18n="@@maximumLength" class="font-medium">maximum length is 20</span>
+        </div>
+      </div>
+      } }
+        </div>
+        <div>
+          <label i18n="@@phone" class="text-sm font-medium text-gray-700 dark:text-gray-300">Phone:</label>
+          <input formControlName="phone" type="tel" 
+            class="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+           @if (updateForm.get('phone')?.errors &&
+      ((updateForm.get('phone')?.touched)||(updateForm.get('phone')?.dirty)))
+      { @if (updateForm.get('phone')?.getError('required')) {
+      <div
+        class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert"
+      >
+        <svg
+          class="shrink-0 inline w-4 h-4 me-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+          />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span i18n="@@fieldRequired" class="font-medium">this field is required</span>
+        </div>
+      </div>
+      } @else if (updateForm.get('phone')?.getError('pattern')) {
+      <div
+        class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert"
+      >
+        <svg
+          class="shrink-0 inline w-4 h-4 me-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+          />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span i18n="@@acceptsEgyNum" class="font-medium">accept only egypt phone numbers</span>
+        </div>
+      </div>
+      } }
+        </div>
+        <div>
+          <label i18n="@@email" class="text-sm font-medium text-gray-700 dark:text-gray-300">Email:</label>
+          <input formControlName="email" type="email" 
+            class="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+         @if (updateForm.get('email')?.errors &&
+      ((updateForm.get('email')?.touched)||(updateForm.get('email')?.dirty)))
+      { @if (updateForm.get('email')?.getError('required')) {
+      <div
+        class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert"
+      >
+        <svg
+          class="shrink-0 inline w-4 h-4 me-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+          />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span i18n="@@fieldRequired" class="font-medium">this field is required</span>
+        </div>
+      </div>
+      } @else if (updateForm.get('email')?.getError('email')) {
+      <div
+        class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert"
+      >
+        <svg
+          class="shrink-0 inline w-4 h-4 me-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+          />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span i18n="@@validEmail" class="font-medium">Enter Valid Email </span>
+        </div>
+      </div>
+      } }
+        </div>
+        <div class="space-x-2">
+          <button i18n="@@update" type="submit" [disabled]="updateForm.invalid"  class="px-4 py-2 mt-5 bg-green-600 cursor-pointer text-white text-sm rounded-lg hover:bg-green-700 disabled:bg-gray-200 disabled:cursor-not-allowed">Update</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>

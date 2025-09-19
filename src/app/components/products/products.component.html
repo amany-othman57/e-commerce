@@ -1,1 +1,155 @@
-<p>products works!</p>
+@if(!isempty){
+
+<div class="flex mt-20">
+  <!-- Sidebar -->
+  <aside id="logo-sidebar" 
+         class="w-64 h-screen bg-gray-50 dark:bg-gray-800 p-4 hidden sm:block">
+    <div class="h-full overflow-y-auto">
+      
+        <span class="self-center text-green-600 text-xl font-semibold whitespace-nowrap dark:text-white">Brands</span>
+      
+      <ul class="space-y-2 font-medium">
+        <!-- Items -->
+      @for (brand of brandsList; track $index) {
+          <li>         
+           
+            <a (click)="getSpecificBrandProducts(brand._id)" class="cursor-pointer hover:text-green-600 flex m-2 items-center py-2 text-gray-900 rounded-lg 
+                            dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            
+           <span>{{brand.name}}</span>
+              </a>
+             
+            
+                      
+         
+        </li>
+      }
+        
+        
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <section class="container mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        @if (categoryId) {
+          <h2 class="text-2xl md:text-3xl font-bold">{{categoryData.name}} Products:</h2>
+        }
+        @else {
+          <h2 class="text-2xl md:text-3xl font-bold">All Products:</h2>
+        }
+        <div class="flex justify-between sm:flex-row items-center gap-3 w-full md:w-auto mb-5">
+          <input [(ngModel)]="searchValue" (input)="onSearch()"
+            type="search" 
+            placeholder="Search by product Name.." 
+            class="w-full sm:w-80 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" 
+          />
+        </div>
+      </div>
+
+      <!-- Products grid -->
+      <div class="grid grid-cols-12 gap-4">
+        @for (product of productList; track $index) {
+          <div class="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 
+                      p-4 border rounded-lg shadow-sm">
+            <img [src]="product.imageCover" [alt]="product.title" 
+                 class="w-full h-60 object-cover cursor-pointer hover:shadow-lg hover:scale-105 
+                        transition-all rounded-md" 
+                 [routerLink]="['/details',product.id]">
+
+            <h5 class="text-green-700 mt-2 text-sm">{{product.category.name}}</h5>
+            <h5 class="font-semibold text-base">
+              {{product.title.split(' ',2).join(' ')}}
+            </h5>
+            
+            <div class="flex justify-between items-center py-2">
+              <p class="text-gray-800 font-medium">{{product.price}} EGP</p>
+              <div class="flex items-center gap-1 text-sm">
+                <i class="fa fa-star text-yellow-600"></i>
+                <span>{{product.ratingsAverage}}</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center py-2">
+              <button (click)="addToCart(product.id)"
+                class="bg-green-600 w-full cursor-pointer rounded-lg p-2 text-white 
+                       hover:bg-green-700 transition-all">
+                Add to Cart
+              </button>
+              <button (click)="addToWishList(product.id)">
+                <i class="fa fa-heart text-green-600 cursor-pointer hover:text-green-700 cursor-pointer ml-3"></i>
+              </button>
+            </div>
+          </div>
+        }    
+      </div>
+
+      <!-- Pagination -->
+      @if (productList.length>0) {
+        <nav aria-label="Page navigation example" class="mt-20 w-full flex justify-end">
+        <ul class="inline-flex -space-x-px text-sm">
+          <li>
+            <button [disabled]="curruentPage==1" (click)="prevPage()"
+              class="cursor-pointer flex items-center font-medium justify-center px-3 h-8 
+                     ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 
+                     rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 
+                     dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 
+                     dark:hover:text-white disabled:bg-gray-100 disabled:cursor-not-allowed">
+              Previous
+            </button>
+          </li>
+          <li>
+            <button [disabled]="curruentPage==totalPages" (click)="nextPage()"
+              class="cursor-pointer flex items-center font-medium justify-center px-3 h-8 
+                     leading-tight text-gray-500 bg-white border border-gray-300 
+                     rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 
+                     dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 
+                     dark:hover:text-white disabled:bg-gray-100 disabled:cursor-not-allowed">
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+      }
+    </section>
+  </main>
+</div>
+
+}
+@else if (isempty) {
+  <section class="flex mt-20" >
+     <aside id="logo-sidebar" 
+         class="w-64 h-screen bg-gray-50 dark:bg-gray-800 p-4 hidden sm:block">
+    <div class="h-full overflow-y-auto">
+      
+        <span class="self-center text-green-600 text-xl font-semibold whitespace-nowrap dark:text-white">Brands</span>
+      
+      <ul class="space-y-2 font-medium">
+      @for (brand of brandsList; track $index) {
+          <li>         
+           
+            <a (click)="getSpecificBrandProducts(brand._id)" class="flex hover:text-green-600 m-2 items-center py-2 text-gray-900 rounded-lg 
+                            dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group cursor-pointer">
+            
+           <span>{{brand.name}}</span>
+              </a>
+             
+            
+                      
+         
+        </li>
+      }
+        
+        
+      </ul>
+    </div>
+  </aside>
+  <div class="flex items-center justify-center ml-100 ">
+    <p class="font-semibold text-3xl">Products are SOLD OUT</p>
+  </div>
+  </section>
+ 
+  
+}

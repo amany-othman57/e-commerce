@@ -1,4 +1,4 @@
-export interface ICategory {
+export interface IBrand {
   _id: string;
   name: string;
   slug: string;
@@ -6,4 +6,3 @@ export interface ICategory {
   createdAt: string;
   updatedAt: string;
 }
-

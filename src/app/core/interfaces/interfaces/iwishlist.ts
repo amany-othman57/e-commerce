@@ -1,29 +1,21 @@
-export interface ICart {
-  _id: string;
-  cartOwner: string;
-  products: Product2[];
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  totalCartPrice: number;
-}
-
-interface Product2 {
-  count: number;
-  _id: string;
-  product: Product;
-  price: number;
-}
-
-interface Product {
+export interface IWishlist {
+  sold: number;
+  images: string[];
   subcategory: Subcategory[];
+  ratingsQuantity: number;
   _id: string;
   title: string;
+  slug: string;
+  description: string;
   quantity: number;
+  price: number;
   imageCover: string;
   category: Category;
   brand: Category;
   ratingsAverage: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
   id: string;
 }
 

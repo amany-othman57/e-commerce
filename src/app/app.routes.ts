@@ -16,14 +16,31 @@ import { logedGuard } from './core/guardes/loged.guard';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { DetailsComponent } from './components/details/details.component';
 export const routes: Routes = [
-    {path:'auth',component:AuthComponent,canActivate:[logedGuard],children:[
-        {path:'',redirectTo:'login',pathMatch:'full'},
-        {path:'login',component:LoginComponent ,title:'Login'},
-        {path:'register',component:RegisterComponent ,title:'Registeration'},
-        {path:'forgetPassword',component:ForgetPasswordComponent ,title:'Forget Password'}
-    ]},
-    {path:'',component:BlankComponent,canActivate:[authGuard],
-        loadChildren:()=>import('../app/layouts/blank/blank.routes').then(r=>r.blankRoutes)
-    },
-    {path:'**',component:NotfoundComponent}
+  {
+    path: 'auth',
+    component: AuthComponent,
+    canActivate: [logedGuard],
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent, title: 'Login' },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        title: 'Registeration',
+      },
+      {
+        path: 'forgetPassword',
+        component: ForgetPasswordComponent,
+        title: 'Forget Password',
+      },
+    ],
+  },
+  {
+    path: '',
+    component: BlankComponent,
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('../app/layouts/blank/blank.routes').then((r) => r.blankRoutes),
+  },
+  { path: '**', component: NotfoundComponent },
 ];

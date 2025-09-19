@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { FlowbiteService } from './flowbite.service';
 
-import { FlowbiteService } from './core/services/flowbite.service';
 
 describe('FlowbiteService', () => {
   let service: FlowbiteService;

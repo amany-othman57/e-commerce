@@ -1,40 +1,70 @@
-<section class="container mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow mt-20">
-  <!-- Cart Header -->
+@if (cartData.totalCartPrice>0) {
+  <section class="container mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow mt-20">
   <h2 class="text-2xl font-semibold mb-2">Shop Cart :</h2>
   <div class="flex justify-between items-center">
     <p class="text-green-600 font-medium mb-6">
-        Total Cart Price : {{ cartData.totalCartPrice }} EGP</p>
-  @if (cartData.totalCartPrice > 0){
-    <button (click)="clear()" class="btn bg-red-500 text-white mb-6 p-2 font-medium rounded cursor-pointer">
-    Delete All Items</button>
-  }
-
+      Total Cart Price : {{ cartData.totalCartPrice }} EGP
+    </p>
+    <button
+      (click)="clear()"
+class="text-white mb-6 cursor-pointer bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"    >
+      Delete All Items
+    </button>
+    
   </div>
-  <!-- Cart Items Loop -->
+
   <div class="space-y-4">
     @for (item of cartData.products; track $index) {
-      <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
-        
-        <!-- Product Info -->
-        <div class="flex items-center space-x-4">
-          <img [src]="item.product.imageCover" [alt]="item.product.title"
-               class="w-20 h-20 object-cover rounded-md border">
-          <div>
-            <h3 class="font-medium text-gray-800">{{ item.product.title }}</h3>
-            <p class="text-green-600 text-sm">price : {{ item.price }}</p>
-            <button class="text-red-500 text-sm flex items-center gap-1 hover:underline" (click)="remove(item.product.id)"><i class="fa fa-trash"></i> Remove </button>
-          </div>
-        </div>
-
-        <!-- Quantity Controls -->
-        <div class="flex items-center space-x-2">
-          <button (click)="update(item.product.id,item.count+1)"
-                  class="border border-green-500 text-green-500 px-2 py-1 rounded hover:bg-green-50">+</button>
-          <span class="px-3 font-semibold">{{ item.count }}</span>
-          <button (click)="update(item.product.id,item.count-1)"
-                  class="border border-green-500 text-green-500 px-2 py-1 rounded hover:bg-green-50">-</button>
+    <div
+      class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm"
+    >
+    
+      <div class="flex items-center space-x-4">
+        <img
+          [src]="item.product.imageCover"
+          [alt]="item.product.title"
+          class="w-20 h-20 object-cover rounded-md border"
+        />
+        <div>
+          <h3 class="font-medium text-gray-800">{{ item.product.title }}</h3>
+          <p class="text-green-600 text-sm">price : {{ item.price }}</p>
+          <button
+            class="text-red-500 text-sm flex items-center gap-1 hover:underline"
+            (click)="remove(item.product.id)"
+          >
+            <i class="fa fa-trash"></i> Remove
+          </button>
         </div>
       </div>
+      <div class="flex items-center space-x-2">
+        <button
+          (click)="update(item.product.id, item.count + 1)"
+          class="border border-green-500 text-green-500 px-2 py-1 rounded hover:bg-green-50"
+        >
+          +
+        </button>
+        <span class="px-3 font-semibold">{{ item.count }}</span>
+        <button
+          (click)="update(item.product.id, item.count - 1)"
+          class="border border-green-500 text-green-500 px-2 py-1 rounded hover:bg-green-50"
+        >
+          -
+        </button>
+      </div>
+    </div>
     }
+    @if (cartData.totalCartPrice > 0){
+       <button [routerLink]="['/orders',cartData._id]"
+      (click)="clear()"
+      class="text-white block ms-auto cursor-pointer bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 mt-4 dark:focus:ring-green-800"
+    >
+      Containue
+    </button>
+    }
+     
   </div>
 </section>
+}
+@else {
+  <img src="images/empty-cart.jpg" width="75%" class="mx-auto" alt="empty-cart">
+}

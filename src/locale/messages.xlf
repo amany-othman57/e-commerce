@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="personalAccount" datatype="html">
+        <source>Account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="personalInfo" datatype="html">
+        <source>Personal Information:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">17,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="name" datatype="html">
+        <source>Name:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fieldRequired" datatype="html">
+        <source>this field is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">121,123</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">171,173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="minimumLength" datatype="html">
+        <source>minimum length is 3</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">71,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="maximumLength" datatype="html">
+        <source>maximum length is 20</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">92,94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="phone" datatype="html">
+        <source>Phone:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="acceptsEgyNum" datatype="html">
+        <source>accept only egypt phone numbers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">142,144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="email" datatype="html">
+        <source>Email:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">148,149</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="validEmail" datatype="html">
+        <source>Enter Valid Email </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">192,194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="update" datatype="html">
+        <source>Update</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/account-info/account-info.component.html</context>
+          <context context-type="linenumber">198,199</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

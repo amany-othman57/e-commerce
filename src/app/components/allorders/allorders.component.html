@@ -1,0 +1,93 @@
+<h2 class="text-center font-bold text-3xl mt-20">My Orders</h2>
+
+<div class="grid grid-cols-1 gap-6 my-10 md:hidden">
+  @for (item of shippingList; track $index) {
+  <div class="shadow-xl p-4 rounded bg-white">
+    <div class="flex justify-between items-center">
+      <h3 class="my-2 font-semibold">Order ID:</h3>
+      <span>{{ item.id }}</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <h3 class="my-2 font-semibold">Delivery Status:</h3>
+      <span class="bg-yellow-500 px-2 py-1 rounded-full text-white"
+        >Pending</span
+      >
+    </div>
+    <div class="flex justify-between items-center">
+      <h3 class="my-2 font-semibold">Payment Status:</h3>
+      <span class="bg-red-500 px-2 py-1 rounded-full text-white">UnPaid</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <h3 class="my-2 font-semibold">Payment Method:</h3>
+      <span class="bg-green-500 px-2 py-1 rounded-full text-white">{{
+        item.paymentMethodType
+      }}</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <h3 class="my-2 font-semibold">Total Price:</h3>
+      <span>{{ item.totalOrderPrice }} EGP</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <h3 class="my-2 font-semibold">Order Date:</h3>
+      <span>{{ item.createdAt | date : "fullDate" }}</span>
+    </div>
+    <button
+      class="w-full mt-4 rounded p-2 bg-green-600 text-white hover:bg-green-700"
+    >
+      View Details
+    </button>
+  </div>
+  }
+</div>
+
+<div class="hidden md:block my-10 overflow-x-auto container mx-auto">
+  <table class="min-w-full text-center shadow-lg">
+    <thead>
+      <tr>
+        <th class="p-3 text-center">Order ID</th>
+        <th class="p-3 text-center">Delivery Status</th>
+        <th class="p-3 text-center">Payment Status</th>
+        <th class="p-3 text-center">Payment Method</th>
+        <th class="p-3 text-center">Total Price</th>
+        <th class="p-3 text-center">Order Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of shippingList; track $index) {
+      <tr class="border-b border-gray-200">
+        <td class="p-5">{{ item.id }}</td>
+        <td class="p-3">
+          @if(item.isDelivered){
+          <span class="bg-green-600 rounded-lg p-2 text-white">Delivered</span>
+          } @else{
+          <span class="bg-yellow-600 rounded-lg p-2 text-white">Pending</span>
+
+          }
+        </td>
+        <td class="p-3">
+          @if(item.isPaid){
+          <span class="bg-green-600 rounded-lg p-2 text-white">Paied</span>
+          } @else{
+          <span class="bg-yellow-600 rounded-lg p-2 text-white">UnPaied</span>
+
+          }
+        </td>
+        <td class="p-3">
+          <span class="bg-blue-500 rounded-lg p-2 text-white">{{
+            item.paymentMethodType
+          }}</span>
+        </td>
+        <td class="p-3">{{ item.totalOrderPrice }} EGP</td>
+        <td class="p-3">{{ item.createdAt | date : "fullDate" }}</td>
+        <td class="p-3">
+          <button
+            class="rounded cursor-pointer px-3 py-1 bg-green-600 text-white hover:bg-green-700"
+          >
+            View Details
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
