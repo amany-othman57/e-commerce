@@ -26,7 +26,7 @@ export const blankRoutes: Routes = [
         {path:'allorders',component:AllordersComponent,title:'all Orders'},
         {path:'account',component:AccountInfoComponent,title:'Profile'},
         {path:'updatePassword',component:UpdatePasswordComponent,title:'Update Password'},
-        {path:'orderdetails/:id',component:OrderDetailsComponent,title:'orderDetails',resolve:{order:GetOrderByIdResolver}}
+        {path:'orderDetails/:id',component:OrderDetailsComponent,title:'orderDetails'}
 
 
     ]

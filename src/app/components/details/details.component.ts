@@ -32,9 +32,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
   src: string = '';
   productDetails: IDetails = {} as IDetails;
   unSubSpecificProduct?: Subscription;
+  unSubActived?:Subscription
 
   ngOnInit(): void {
-    this._ActivatedRoute.paramMap.subscribe({
+  this.unSubActived=  this._ActivatedRoute.paramMap.subscribe({
       next: (p) => {
         console.log(p.get('id'));
         this.productId = p.get('id');
@@ -67,6 +68,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.unSubSpecificProduct) {
       this.unSubSpecificProduct.unsubscribe();
+    }
+    if(this.unSubActived){
+      this.unSubActived.unsubscribe()
     }
   }
 }

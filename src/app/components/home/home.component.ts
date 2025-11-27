@@ -12,14 +12,16 @@ import { ProductsService } from '../../core/services/services/products.service';
 import { CategoriesService } from '../../core/services/services/categories.service';
 import { WishlistService } from '../../core/services/services/wishlist.service';
 import { LoginService } from '../../core/services/services/login.service';
+import { NgxSpinnerService, NgxSpinnerComponent } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
-  imports: [CarouselModule, RouterLink],
+  imports: [CarouselModule, RouterLink, NgxSpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  constructor(private spinner: NgxSpinnerService) {}
   productList: IProduct[] = [];
   categoriesList: ICategory[] = [];
   unSubProducts?: Subscription;
@@ -79,7 +81,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
-this._LoginService.saveUserData()
     this.unSubProducts = this._ProductsService.getAllProducts().subscribe({
       next: (res) => {
         console.log(res);
@@ -101,10 +102,11 @@ this._LoginService.saveUserData()
     });
   }
   addToCart(id: string): void {
-  
+    this.spinner.show()
     this.unSubCart = this._CartService.addToCart(id).subscribe({
       next: (res) => {
         console.log(res);
+     this.spinner.hide()   
         if (res.status == 'success') {
           Swal.fire({
             title: 'Added to Cart!',
@@ -119,13 +121,16 @@ this._LoginService.saveUserData()
       },
       error: (err) => {
         console.log(err);
+        this.spinner.hide()
       },
     });
   }
   addToWishList(id: string): void {
+    this.spinner.show()
     this.unSubWish = this._WishlistService.addToWishlist(id).subscribe({
       next: (res) => {
         console.log(res);
+        this.spinner.hide()
         if (res.status == 'success') {
           Swal.fire({
             title: 'Added to WishList!',
@@ -140,6 +145,7 @@ this._LoginService.saveUserData()
       },
       error: (err) => {
         console.log(err);
+        this.spinner.hide()
       },
     });
   }

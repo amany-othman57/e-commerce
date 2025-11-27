@@ -18,8 +18,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
   unSubCart?: Subscription;
   unSubGetWishlist?: Subscription;
   unSubRemovItem?: Subscription;
-
-  listData: IWishlist[] = [];
+  listData:IWishlist[]=[];
   ngOnInit(): void {
     this.unSubGetWishlist = this._WishlistService.getWishlist().subscribe({
       next: (res) => {
@@ -48,7 +47,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
             position: 'top-end',
           });
           this.removeItem(id)
-              this.listData = res.data;
         }
       },
       error: (err) => {
@@ -63,7 +61,18 @@ export class WishlistComponent implements OnInit, OnDestroy {
         next: (res) => {
           console.log(res);
           if (res.status == 'success') {
-            this.listData = res.data;
+            this.unSubGetWishlist = this._WishlistService.getWishlist().subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.status == 'success') {
+          this.listData = res.data;
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+            
            
         }},
         error: (err) => {

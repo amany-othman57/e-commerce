@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { OrdersService } from '../../core/services/services/orders.service';
 import {
   FormControl,
@@ -8,21 +8,28 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerComponent, NgxSpinnerService } from "ngx-spinner";
+import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
-  imports: [ReactiveFormsModule,FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, NgxSpinnerComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit ,OnDestroy{
+   constructor(private spinner: NgxSpinnerService) {}
   private readonly _OrdersService = inject(OrdersService);
   private readonly _ActivatedRoute=inject(ActivatedRoute);
   private readonly _Router=inject(Router)
   checkedMethod:string=''
   cartId:string|null=''
+  unSubActivated?:Subscription
+  unSubCash?:Subscription
+  unSubCheckOut?:Subscription
   ngOnInit(): void {
-      this._ActivatedRoute.paramMap.subscribe({
+   this.unSubActivated= this._ActivatedRoute.paramMap.subscribe({
         next:(p)=>{
           console.log(p.get('id'))
           this.cartId=p.get('id')
@@ -45,33 +52,69 @@ method(e:Event):void{
     city: new FormControl(null, [Validators.required]),
   });
   submitForm(): void {
+    this.spinner.show()
    if(this.shippingForm.valid && this.checkedMethod=='cash'){
-    this._OrdersService.cashOrder(this.cartId,this.shippingForm.value).subscribe({
+  this.unSubCash=this._OrdersService.cashOrder(this.cartId,this.shippingForm.value).subscribe({
       next:(res)=>{
         console.log(res)
+        this.spinner.hide()
         if(res.status=='success')
           this._Router.navigate(['/allorders'])
+
 
       },
       error:(err)=>{
         console.log(err)
+        this.spinner.hide()
+         Swal.fire({
+                    title: 'Fail',
+                    text: `SomeThing went wrong,try again!`,
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    toast: true,
+                    position: 'top-end',
+                  });
       }
     })
     
    }
      else if(this.shippingForm.valid && this.checkedMethod=='visa'){
-      this._OrdersService.checkOutOrder(this.cartId,this.shippingForm.value).subscribe({
+      this.spinner.show()
+  this.unSubCheckOut= this._OrdersService.checkOutOrder(this.cartId,this.shippingForm.value).subscribe({
         next:(res)=>{
           console.log(res)
+          this.spinner.hide()
           window.open(res.session.url ,'_self')
         },
         error:(err)=>{
           console.log(err)
+          this.spinner.hide()
+           Swal.fire({
+                      title: 'Fail',
+                      text: `Something went wrong ,try again!`,
+                      icon: 'error',
+                      showConfirmButton: false,
+                      timer: 2000,
+                      toast: true,
+                      position: 'top-end',
+                    });
         }
       })
      }
 
 
     
+  }
+  ngOnDestroy(): void {
+      if(this.unSubActivated){
+        this.unSubActivated.unsubscribe()
+      }
+      if(this.unSubCash){
+        this.unSubCash.unsubscribe()
+      }
+      if(this.unSubCheckOut){
+        this.unSubCheckOut.unsubscribe()
+      }
   }
 }

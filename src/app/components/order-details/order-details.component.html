@@ -1,0 +1,111 @@
+<section class="container mx-auto rounded-lg shadow-lg mt-10 p-6 md:p-10">
+  <!-- Title -->
+  <h1 class="font-bold text-2xl md:text-3xl text-center mb-6">Order Details</h1>
+
+  <!-- User Info & Shipping -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- User Information -->
+    <div class="bg-gray-100 w-full rounded p-4">
+      <h4 class="font-semibold my-2 text-green-600 text-xl md:text-2xl">
+        User Information:
+      </h4>
+      <p class="font-semibold my-1">
+        Name:
+        <span class="font-normal">{{ orderList?.user?.name }}</span>
+      </p>
+      <p class="font-semibold my-1">
+        Email:
+        <span class="font-normal">{{ orderList?.user?.email }}</span>
+      </p>
+      <p class="font-semibold my-1">
+        Phone:
+        <span class="font-normal">{{ orderList?.user?.phone }}</span>
+      </p>
+    </div>
+
+    <!-- Shipping Address -->
+    <div class="bg-gray-100 w-full rounded p-4">
+      <h4 class="font-semibold my-2 text-green-600 text-xl md:text-2xl">
+        Shipping Address:
+      </h4>
+      <p class="font-semibold my-1">
+        City:
+        <span class="font-normal">{{ orderList?.shippingAddress?.city }}</span>
+      </p>
+      <p class="font-semibold my-1">
+        Phone:
+        <span class="font-normal">{{ orderList?.shippingAddress?.phone }}</span>
+      </p>
+      <p class="font-semibold my-1">
+        Details:
+        <span class="font-normal">{{ orderList?.shippingAddress?.details }}</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <h4
+    class="font-semibold text-xl md:text-2xl my-4 text-green-600 px-2 md:px-4"
+  >
+    Products:
+  </h4>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    @for (item of orderList?.cartItems; track $index) {
+    <div
+      class="flex flex-col md:flex-row items-center bg-gray-100 rounded-lg shadow-sm overflow-hidden"
+    >
+      <img
+        class="object-cover w-full h-48 md:h-auto md:w-40"
+        [src]="item.product.imageCover"
+        [alt]="item.product.title"
+      />
+      <div class="bg-gray-100 w-full p-4">
+        <p class="font-semibold mb-2 text-green-600">
+          {{ item.product.title }}
+        </p>
+        <p class="font-semibold my-1">
+          Quantity:
+          <span class="font-normal">{{ item.count }}</span>
+        </p>
+        <p class="font-semibold my-1">
+          Price:
+          <span class="font-normal">{{ item.price }}</span>
+        </p>
+        <p class="font-semibold my-1">
+          Category:
+          <span class="font-normal">{{ item.product.category.name }}</span>
+        </p>
+        <p class="font-semibold my-1">
+          Brand:
+          <span class="font-normal">{{ item.product.brand.name }}</span>
+        </p>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Order Summary -->
+  <div class="bg-gray-100 w-full rounded p-4 mt-6">
+    <h4 class="font-semibold my-2 text-green-600 text-xl md:text-2xl">
+      Order Summary:
+    </h4>
+    <p class="font-semibold my-1">
+      Shipping Price:
+      <span class="font-normal">{{ orderList?.shippingPrice }} EGP</span>
+    </p>
+    <p class="font-semibold my-1">
+      Tax:
+      <span class="font-normal">{{ orderList?.taxPrice }} EGP</span>
+    </p>
+    <p class="font-semibold my-1">
+      Total:
+      <span class="font-normal">{{ orderList?.totalOrderPrice }} EGP</span>
+    </p>
+    <p class="font-semibold my-1">
+      Order Date:
+      <span class="font-normal">{{
+        orderList?.createdAt | date : "short"
+      }}</span>
+    </p>
+  </div>
+</section>

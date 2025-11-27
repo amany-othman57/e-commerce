@@ -1,4 +1,6 @@
-<h2 class="text-center font-bold text-3xl mt-20">My Orders</h2>
+
+@if(shippingList.length>0){
+  <h2 class="text-center font-bold text-3xl mt-20">My Orders</h2>
 
 <div class="grid grid-cols-1 gap-6 my-10 md:hidden">
   @for (item of shippingList; track $index) {
@@ -9,17 +11,25 @@
     </div>
     <div class="flex justify-between items-center">
       <h3 class="my-2 font-semibold">Delivery Status:</h3>
-      <span class="bg-yellow-500 px-2 py-1 rounded-full text-white"
-        >Pending</span
-      >
+       @if(item.isDelivered){
+          <span class="bg-green-600 rounded-lg p-2 my-2 text-white">Delivered</span>
+          } @else{
+          <span class="bg-yellow-600 rounded-lg p-2 my-2 text-white">Pending</span>
+
+          }
     </div>
     <div class="flex justify-between items-center">
       <h3 class="my-2 font-semibold">Payment Status:</h3>
-      <span class="bg-red-500 px-2 py-1 rounded-full text-white">UnPaid</span>
+      @if(item.isPaid){
+          <span class="bg-green-600 rounded-lg  p-2 my-2 text-white">Paied</span>
+          } @else{
+          <span class="bg-red-600 rounded-lg p-2 my-2 text-white">UnPaied</span>
+
+          }
     </div>
     <div class="flex justify-between items-center">
       <h3 class="my-2 font-semibold">Payment Method:</h3>
-      <span class="bg-green-500 px-2 py-1 rounded-full text-white">{{
+      <span class="bg-blue-500 p-2 my-2 rounded-lg text-white">{{
         item.paymentMethodType
       }}</span>
     </div>
@@ -31,7 +41,7 @@
       <h3 class="my-2 font-semibold">Order Date:</h3>
       <span>{{ item.createdAt | date : "fullDate" }}</span>
     </div>
-    <button
+    <button [routerLink]="['/orderDetails',item.id]"
       class="w-full mt-4 rounded p-2 bg-green-600 text-white hover:bg-green-700"
     >
       View Details
@@ -80,7 +90,7 @@
         <td class="p-3">{{ item.totalOrderPrice }} EGP</td>
         <td class="p-3">{{ item.createdAt | date : "fullDate" }}</td>
         <td class="p-3">
-          <button
+          <button [routerLink]="['/orderDetails',item.id]"
             class="rounded cursor-pointer px-3 py-1 bg-green-600 text-white hover:bg-green-700"
           >
             View Details
@@ -91,3 +101,8 @@
     </tbody>
   </table>
 </div>
+
+}
+@else {
+  <p class="text-3xl font-semibold text-center">No Orders Yet!</p>
+}

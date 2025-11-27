@@ -11,7 +11,6 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 export class BlankNavComponent {
   isMenuOpen = false;
 isUserMenuOpen = false;
-
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -23,6 +22,7 @@ isUserMenuOpen = false;
       this._Router.navigate(['/auth/login']);
     }
   }
+
 
   
 }

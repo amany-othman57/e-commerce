@@ -11,14 +11,16 @@ import { CategoriesService } from '../../core/services/services/categories.servi
 import { ICategory } from '../../core/interfaces/interfaces/icategory';
 import { BrandsService } from '../../core/services/services/brands.service';
 import { IBrand } from '../../core/interfaces/interfaces/ibrand';
+import { NgxSpinnerComponent, NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-products',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, NgxSpinnerComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent implements OnInit, OnDestroy {
+  constructor(private spinner: NgxSpinnerService) {}
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CartService = inject(CartService);
   private readonly _WishlistService = inject(WishlistService);
@@ -58,6 +60,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
               this.totalPages = res.metadata.numberOfPages;
               this.curruentPage = res.metadata.currentPage;
               this.productList = res.data;
+               window.scroll({
+              top:0,
+              behavior:'smooth'
+            })
             } else {
               this.isempty = true;
             }
@@ -75,6 +81,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
             this.totalPages = res.metadata.numberOfPages;
             this.curruentPage = res.metadata.currentPage;
             this.productList = res.data;
+            window.scroll({
+              top:0,
+              behavior:'smooth'
+            })
           },
           error: (err) => {
             console.log(err);
@@ -140,9 +150,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
   addToCart(id: string): void {
+    this.spinner.show()
     this.unSubCart = this._CartService.addToCart(id).subscribe({
       next: (res) => {
         console.log(res);
+        this.spinner.hide()
         if (res.status == 'success') {
           Swal.fire({
             title: 'Added to Cart!',
@@ -157,13 +169,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.log(err);
+        this.spinner.hide()
       },
     });
   }
   addToWishList(id: string): void {
+    this.spinner.show()
     this.unSubWish = this._WishlistService.addToWishlist(id).subscribe({
       next: (res) => {
         console.log(res);
+        this.spinner.hide()
         if (res.status == 'success') {
           Swal.fire({
             title: 'Added to WishList!',
@@ -178,6 +193,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.log(err);
+        this.spinner.hide()
       },
     });
   }
